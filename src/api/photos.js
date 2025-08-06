@@ -12,8 +12,8 @@ export const fetchPhotos = async ({ page = 1, limit = 10 } = {}) => {
         }
         const data = await response.json()
 
+        //replace images because the API does not provide valid images
         if( data && Array.isArray(data) ) {
-            // mapeamos y sustituimos las ur'ls de las imágenes
             data.forEach(photo => {
                 photo.url = `https://picsum.photos/seed/${photo.id}/600/400`
                 photo.thumbnailUrl = `https://picsum.photos/seed/${photo.id}/150/100`
