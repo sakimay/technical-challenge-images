@@ -1,9 +1,12 @@
 <template>
 
     <div class="grid grid-cols-2 gap-4">
-        <SkeletonImage v-for="n in 5" :key="n"/>
         <ImageCard v-for="photo in photos" :photo="photo" :key="photo.id" />
-        <div ref="observerElement" style="height: 40px; display: flex; align-items: center; justify-content: center;">
+        <SkeletonImage v-if="loading" v-for="n in 6" :key="n"/>
+        <div 
+            ref="observerElement" 
+            class="h-[40px] flex items-center justify-center"
+        >
         </div>
     </div>
 
@@ -21,8 +24,6 @@ const error = ref(null)
 const page = ref(1)
 const limit = 20
 const observerElement = ref(null)
-
-let observer = null
 
 onMounted(() => {
     loadPhotos()
@@ -55,12 +56,8 @@ const loadPhotos = async () => {
 }
 
 const loadMorePhotos = async () => {
-    console.log('Loading more photos...');
-
     page.value++
     await loadPhotos()
 }
-
-
 
 </script>
