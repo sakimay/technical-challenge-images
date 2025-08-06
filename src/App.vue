@@ -7,11 +7,9 @@ import GridImages from '@/components/GridImages.vue';
 <template>
   <Header />
   <main class="flex flex-col items-center min-h-screen">
-    <GridImages /> 
+    <GridImages />
   </main>
   <Footer />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

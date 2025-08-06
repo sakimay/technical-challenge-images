@@ -1,13 +1,9 @@
 <template>
-    <div v-if="loading">Loading...</div>
-    <div class="text-red-500" v-else-if="error">Error: {{ error.message }}</div>
-    <div v-else>
-        <div class="grid grid-cols-2 gap-4">
-            <ImageCard v-for="photo in photos" :photo="photo" :key="photo.id" />
-        </div>
 
-        <div class="pagination">
-            <button @click="loadMore">Load more</button>
+    <div class="grid grid-cols-2 gap-4">
+        <SkeletonImage v-for="n in 5" :key="n"/>
+        <ImageCard v-for="photo in photos" :photo="photo" :key="photo.id" />
+        <div ref="observerElement" style="height: 40px; display: flex; align-items: center; justify-content: center;">
         </div>
     </div>
 
@@ -16,13 +12,33 @@
 <script setup>
 import { fetchPhotos } from '@/api/photos.js'
 import ImageCard from '/src/components/ImageCard.vue'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
+import SkeletonImage from './SkeletonImage.vue'
 
 const photos = ref([])
-const loading = ref(false)
+const loading = ref(true)
 const error = ref(null)
 const page = ref(1)
-const limit = 10
+const limit = 20
+const observerElement = ref(null)
+
+let observer = null
+
+onMounted(() => {
+    loadPhotos()
+    window.addEventListener("scroll", handleScroll)
+})
+onUnmounted(() => {
+    window.removeEventListener("scroll", handleScroll)
+})
+
+const handleScroll = (e) => {
+    const element = observerElement.value
+    if (!element) return
+    if (element.getBoundingClientRect().bottom < window.innerHeight) {
+        loadMorePhotos()
+    }
+}
 
 const loadPhotos = async () => {
     loading.value = true
@@ -38,11 +54,13 @@ const loadPhotos = async () => {
     }
 }
 
-const loadMore = async () => {
+const loadMorePhotos = async () => {
+    console.log('Loading more photos...');
+
     page.value++
     await loadPhotos()
 }
 
-onMounted(loadPhotos)
+
 
 </script>
