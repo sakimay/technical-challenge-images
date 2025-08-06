@@ -6,7 +6,7 @@ import GridImages from '@/components/GridImages.vue';
 
 <template>
   <Header />
-  <main class="flex flex-col items-center min-h-screen">
+  <main class="flex flex-col items-center min-h-screen container mx-auto">
     <GridImages />
   </main>
   <Footer />
