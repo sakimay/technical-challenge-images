@@ -1,8 +1,8 @@
 <template>
     <div class="grid-images w-full p-6">
-        <ImageCard v-for="photo in photos" :photo="photo" :key="photo.id" />
+        <ImageCard v-for="photo in photos" :photo="photo" :key="photo.id" @click="deletePhoto(photo.id)"/>
         <SkeletonImage v-if="loading" v-for="n in 6" :key="n" />
-        <div ref="observerElement" class="h-[40px] flex items-center justify-center">
+        <div ref="observerElement" class="h-[100px] flex items-center justify-center">
         </div>
     </div>
 </template>
@@ -60,6 +60,10 @@ const loadMorePhotos = async () => {
     if (loading.value || finished.value) return
     page.value++
     await loadPhotos()
+}
+
+const deletePhoto = (id) => {
+    photos.value = photos.value.filter((photo) => photo.id !== id)
 }
 
 </script>
