@@ -2,7 +2,7 @@ import { fetchPhotos } from '@/api/photos.js'
 
 describe('fetchPhotos', () => {
   it('returns the correct number of photos with required fields', async () => {
-    const limit = 10
+    const limit = 35
     const page = 1
 
     const photos = await fetchPhotos({ page, limit })
