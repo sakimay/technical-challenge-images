@@ -1,6 +1,6 @@
 export const fetchPhotos = async ({ page = 1, limit = 10 } = {}) => {
     try {
-        const response = await fetch(`https://jsonplaceholder.typicode.com/photos?_page=${page}&_per_page=${limit}`, {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/photos?_page=${page}&_limit=${limit}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

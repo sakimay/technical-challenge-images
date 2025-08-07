@@ -17,7 +17,7 @@ const photos = ref([])
 const loading = ref(true)
 const error = ref(null)
 const page = ref(1)
-const limit = 20
+const limit = 10
 const finished = ref(false)
 const observerElement = ref(null)
 
@@ -30,8 +30,6 @@ onUnmounted(() => {
 })
 
 const handleScroll = (e) => {
-    if (loading.value || finished.value) return
-    if (!observerElement.value) return
     const element = observerElement.value
     if (!element) return
     if (element.getBoundingClientRect().bottom < window.innerHeight) {
